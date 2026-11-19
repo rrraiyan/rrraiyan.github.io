@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..600&family=Instrument+Sans:wght@400..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=11">
+<link rel="stylesheet" href="css/style.css?v=12">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230E4A3B'/%3E%3Cpath d='M6 22 L12 15 L17 18 L26 8' stroke='%23E3A72F' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 </head>
@@ -56,7 +56,7 @@
 <section class="band numbers" aria-label="At a glance">
   <div class="wrap grid3">
     <a class="num rv" href="#research"><p class="big"><span data-count="5">5</span> papers</p><p>on banking, credit risk, trade finance, RMG policy and workplace AI</p></a>
-    <a class="num rv" href="#work"><p class="big"><span data-count="7">7</span> projects</p><p>forecasting models, AI agents and web apps, with code on GitHub</p></a>
+    <a class="num rv" href="#work"><p class="big"><span data-count="9">9</span> projects</p><p>a valuation model, forecasting models, AI agents and web apps</p></a>
     <a class="num rv" href="#path"><p class="big"><span data-count="3">3</span> roles</p><p>research assistant, AI trainer, and intern at BuildNation</p></a>
   </div>
 </section>
@@ -65,14 +65,35 @@
 <section id="work" class="wrap section">
   <header class="sec-head rv">
     <p class="kicker">Selected work</p>
-    <h2>Things I built. Most of them you can play with.</h2>
-    <p class="sub">The charts use the actual results from my project repositories.</p>
+    <h2>Things I built. Try the charts as you read.</h2>
+    <p class="sub">The charts use the actual results from each project.</p>
   </header>
 
-  <!-- 01 ADOBE -->
-  <article class="chapter" id="adobe">
+  <!-- 01 VALUATION -->
+  <article class="chapter" id="valuation">
     <div class="ch-text rv">
       <p class="ch-num">01</p>
+      <h3>Is a new training centre and recording studio worth the money?</h3>
+      <p>I built a five-year valuation for a planned training centre and recording studio in Dhaka. Its 24 linked sheets run from course-by-course revenue, equipment and running costs through tax and cash flow to a combined DCF (discounted cash flow). I built the discount rate up from the Bangladesh 10-year bond yield, Damodaran's country risk data and a start-up premium, and checks inside the model tie out the balance sheets, cash and tax.</p>
+      <p>On the headline numbers the project clears its hurdle rate. A large share of first-year revenue, though, is the company's own work billed to the centre and studio. Take that out and the plan doesn't pay back within five years, so the decision rests on how much of that work the company would really send their way. Press the button to take it out.</p>
+      <p class="tags">Excel · DCF valuation · CAPM · Scenario analysis</p>
+    </div>
+    <div class="ch-fig rv">
+      <div class="card">
+        <div class="readout" id="valReadout" aria-live="polite"></div>
+        <div class="chart" id="valChart"></div>
+        <div class="av-foot">
+          <button class="btn primary sm" id="valToggle" type="button">Take out the in-house work</button>
+          <p class="fine">Cumulative cash flow after tax, scaled to the upfront investment. Amounts are left out because the model is confidential.</p>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 02 ADOBE -->
+  <article class="chapter flip" id="adobe">
+    <div class="ch-text rv">
+      <p class="ch-num">02</p>
       <h3>Deep learning won inside the window it was tuned for. Past it, trend fitting won.</h3>
       <p>I forecast Adobe's share price with two models: <b>N-HiTS</b>, a deep-learning model, and <b>Prophet</b>, which fits a trend and seasonal cycles. I tuned both to forecast 60 days ahead on 2014 to 2018 prices, then forecast 2019 from a single starting point.</p>
       <p>Up to 60 days, N-HiTS was more accurate. Beyond that it was forecasting further than it was trained for, and Prophet's trend held up better: at 250 days its error was about half of N-HiTS's. Drag the horizon to see where the lead changes.</p>
@@ -93,10 +114,10 @@
     </div>
   </article>
 
-  <!-- 02 PHONES -->
-  <article class="chapter flip" id="phones">
+  <!-- 03 PHONES -->
+  <article class="chapter" id="phones">
     <div class="ch-text rv">
-      <p class="ch-num">02</p>
+      <p class="ch-num">03</p>
       <h3>How many phones will Canada buy in 2026?</h3>
       <p>A month-by-month 2026 forecast for Apple, Samsung, Google and Motorola. For each brand I trained 8 models on import, inventory, market-share and search-trend data, then kept the best. On data they hadn't seen, they missed by 15 to 20%.</p>
       <p>The live dashboard also lets you test inflation and product-launch scenarios.</p>
@@ -119,10 +140,10 @@
     </div>
   </article>
 
-  <!-- 03 TENDERS -->
-  <article class="chapter" id="tenders">
+  <!-- 04 TENDERS -->
+  <article class="chapter flip" id="tenders">
     <div class="ch-text rv">
-      <p class="ch-num">03</p>
+      <p class="ch-num">04</p>
       <h3>An agent that reads tender portals so people don't have to.</h3>
       <p>Teams that bid for contracts lose hours scanning procurement portals, and most of what they read is irrelevant. I built <b>TenderScreener</b> for BuildNation. It reads about 1,000 new notices a day, keeps about 40, has an AI model score each against the company's services, and emails a short ranked digest.</p>
       <p>Staff control the keywords, services and recipients from a Google Sheet without touching code. Their "relevant / not relevant" verdicts feed back into the scoring.</p>
@@ -151,10 +172,10 @@
     </div>
   </article>
 
-  <!-- 04 TRIPMATE -->
-  <article class="chapter flip" id="tripmate">
+  <!-- 05 TRIPMATE -->
+  <article class="chapter" id="tripmate">
     <div class="ch-text rv">
-      <p class="ch-num">04</p>
+      <p class="ch-num">05</p>
       <h3>An AI travel agent that plans the whole trip.</h3>
       <p>Tell <b>TripMate</b> where and when you want to go. It works out what it needs to know, calls live data tools for weather, visa rules, flights, hotels and places, does the budget arithmetic in code, and writes a day-by-day plan from what came back.</p>
       <p>For flights and hotels it pulls live prices and gives you a direct link to each one on Skyscanner or Booking.com, ready to book. It also recommends restaurants and sights with real addresses. You can use it in a browser or on Telegram.</p>
@@ -186,10 +207,10 @@
     </div>
   </article>
 
-  <!-- 05 AVATAR -->
-  <article class="chapter" id="avatar">
+  <!-- 06 AVATAR -->
+  <article class="chapter flip" id="avatar">
     <div class="ch-text rv">
-      <p class="ch-num">05</p>
+      <p class="ch-num">06</p>
       <h3>Predicting the first-week box office of <i>Avatar: Fire and Ash</i>.</h3>
       <p>I scraped 5,000+ films, benchmarked 11 models and picked an explainable boosting model to forecast the first-week U.S. gross of <i>Avatar: Fire and Ash</i>. For a 3,800-theatre release, its raw answer was <b>$103M</b>.</p>
       <p>I didn't trust that number. Tested on <i>The Way of Water</i>, the same model had come in 2.35× too low, because the franchise outperforms what its budget, cast and history predict. So I scaled the forecast by 75% of that gap (1.76×), holding back a quarter for sequel fatigue. That gave <b>$182M</b>.</p>
@@ -210,10 +231,10 @@
     </div>
   </article>
 
-  <!-- 06 YOUTUBE -->
-  <article class="chapter flip" id="yt">
+  <!-- 07 YOUTUBE -->
+  <article class="chapter" id="yt">
     <div class="ch-text rv">
-      <p class="ch-num">06</p>
+      <p class="ch-num">07</p>
       <h3>A YouTube studio I run from one dashboard.</h3>
       <p><b>YouTube Autopilot</b> finds trending topics that fit the channel, researches them, writes and fact-checks a script, narrates it, adds footage and captions, and packages one long video with 2 or 3 Shorts. Every claim in the script must quote a source, and the code rejects any quote it can't find in that source.</p>
       <p>From the dashboard I approve topics and videos, edit titles and tags, and handle comments. It reads new comments, drafts replies and posts the ones I approve, or posts simple ones by itself within a daily limit when I switch that on. It learns from what I approve and reject. Uploading the video stays my job.</p>
@@ -235,9 +256,9 @@
     </div>
   </article>
 
-  <!-- 07 GRE -->
+  <!-- 08 GRE -->
   <article class="mini rv" id="gre">
-    <p class="ch-num">07</p>
+    <p class="ch-num">08</p>
     <div>
       <h3>GRE Practice Centre</h3>
       <p>A free GRE practice app I co-designed with a teammate. It follows the real test's format, including the adaptive second section. He built the first version; I added tougher questions for stricter preparation, randomized tests, and an account system so each person practises under their own account.</p>
@@ -246,6 +267,15 @@
     <div class="mini-links">
       <a class="link" href="https://prans-code.github.io/gre-practice-centre/" target="_blank" rel="noopener">Try it ↗</a>
       <a class="link" href="https://github.com/prans-code/gre-practice-centre" target="_blank" rel="noopener">Code ↗</a>
+    </div>
+  </article>
+  <!-- 09 UAT TRACKER -->
+  <article class="mini rv" id="uat">
+    <p class="ch-num">09</p>
+    <div>
+      <h3>LMS Journey &amp; Feature Tracker</h3>
+      <p>A testing tracker I built for BuildNation's new learning platform, as a web app on Google Sheets and Apps Script. It walks through seven user journeys, from student to super admin, one step at a time. Testers mark each step Pass, Partly, Fail or Not built, and each feature gets a build status and a review. Staff are recognised by their work email, outside vendors use personal access codes, and every change is logged.</p>
+      <p class="tags">Google Apps Script · JavaScript · Google Sheets · User acceptance testing</p>
     </div>
   </article>
 </section>
@@ -370,7 +400,7 @@
   </div>
 </footer>
 
-<script src="js/data.js?v=11"></script>
-<script src="js/main.js?v=11"></script>
+<script src="js/data.js?v=12"></script>
+<script src="js/main.js?v=12"></script>
 </body>
 </html>

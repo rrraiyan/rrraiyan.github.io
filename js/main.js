@@ -166,6 +166,60 @@ $$('#phoneTabs button').forEach(b => b.addEventListener('click', () => {
   drawPhones(true);
 }));
 
+/* ================= Valuation: with vs without in-house work ================= */
+const V = D.val, valBox = $('#valChart'), valBtn = $('#valToggle'), valRead = $('#valReadout');
+let valK = 0, valDraw = null, valOn = false, valTouched = false;
+function valText() {
+  valRead.innerHTML = valOn
+    ? '<strong>Outside clients only: no payback in five years</strong>By Year 5 the cash hole is deeper than on day one'
+    : '<strong>With in-house work: pays back in Year 3</strong>The company\'s own work is billed to the centre and studio';
+}
+function buildVal(animate) {
+  valBox.innerHTML = '';
+  const W = valBox.clientWidth, H = valBox.clientHeight;
+  if (!W) return;
+  const narrow = W < 520, n = V.with.length;
+  const m = { l: narrow ? 20 : 26, r: narrow ? 96 : 136, t: 18, b: 28 }, ymin = -2.3, ymax = 3.6;
+  const x = i => m.l + i / (n - 1) * (W - m.l - m.r);
+  const y = v => m.t + (ymax - v) / (ymax - ymin) * (H - m.t - m.b);
+  const svg = el('svg', { class: 'c', viewBox: `0 0 ${W} ${H}`, role: 'img',
+    'aria-label': 'Line chart of cumulative cash flow over five years. With in-house work it turns positive in Year 3. With outside clients only it never returns to break-even.' }, valBox);
+  const g = el('g', { class: 'grid' }, svg), ax = el('g', { class: 'ax' }, svg);
+  for (let i = 0; i < n; i++) {
+    el('line', { x1: x(i), x2: x(i), y1: m.t, y2: H - m.b }, g);
+    el('text', { x: x(i), y: H - 6, 'text-anchor': 'middle' }, ax).textContent = (narrow ? 'Y' : 'Year ') + i;
+  }
+  el('line', { x1: m.l, x2: W - m.r + 8, y1: y(0), y2: y(0), style: 'stroke:var(--ink);stroke-width:1.5;opacity:.55' }, svg);
+  el('text', { x: m.l + 4, y: y(0) - 8, class: 'lbl m' }, svg).textContent = 'Break-even';
+  const line = vals => vals.map((v, i) => (i ? 'L' : 'M') + x(i) + ',' + y(v)).join('');
+  const dot = col => el('circle', { r: 4, style: `fill:${col};stroke:var(--card);stroke-width:2` }, svg);
+  const pe = el('path', { style: 'fill:none;stroke:var(--c-acc);stroke-width:2.5' }, svg);
+  const de = V.ext.map(() => dot('var(--c-acc)'));
+  const le = el('text', { x: x(n - 1) + 12, class: 'lbl' }, svg);
+  le.textContent = narrow ? 'Outside only' : 'Outside clients only';
+  const pw = el('path', { d: line(V.with), style: 'fill:none;stroke:var(--c-main);stroke-width:2.5' }, svg);
+  if (animate) drawIn(pw, 1400);
+  V.with.forEach((v, i) => { const c = dot('var(--c-main)'); c.setAttribute('cx', x(i)); c.setAttribute('cy', y(v)); });
+  el('text', { x: x(n - 1) + 12, y: y(V.with[n - 1]) + 4, class: 'lbl' }, svg).textContent = narrow ? 'With in-house' : 'With in-house work';
+  valDraw = k => {
+    const v = V.with.map((w, i) => w + (V.ext[i] - w) * k), op = Math.min(1, k * 3);
+    pe.setAttribute('d', line(v));
+    de.forEach((c, i) => { c.setAttribute('cx', x(i)); c.setAttribute('cy', y(v[i])); c.style.opacity = op; });
+    pe.style.opacity = op;
+    le.setAttribute('y', y(v[n - 1]) + 4); le.style.opacity = op;
+  };
+  valDraw(valK);
+}
+function valSet(on) {
+  valOn = on;
+  valBtn.textContent = on ? 'Put the in-house work back' : 'Take out the in-house work';
+  valText();
+  const from = valK, to = on ? 1 : 0;
+  tween(1000, e => { valK = from + (to - from) * e; valDraw && valDraw(valK); });
+}
+valBtn.addEventListener('click', () => { valTouched = true; valSet(!valOn); });
+valText();
+
 /* ================= Adobe: Prophet vs N-HiTS ================= */
 const A = D.adobe, adobeBox = $('#adobeChart'), slider = $('#adobeSlider'), adobeRead = $('#adobeReadout');
 let adobeSel = 0, adobeSet = null, adobeTouched = false;
@@ -550,8 +604,10 @@ function drawAll(animate) {
   drawPhones(false);
   drawAdobe(false);
   buildAv();
+  buildVal(false);
 }
 drawAll(true);
+once($('#valChart'), async () => { buildVal(true); await sleep(2200); if (!valTouched) valSet(true); }, 0.6);
 // trigger on the figure itself, not the whole chapter: stacked chapters on phones are taller than the screen
 once($('#adobeChart'), () => { drawAdobe(true); adobeSweep(); }, 0.6);
 once($('#phoneChart'), () => drawPhones(true), 0.6);
@@ -565,6 +621,6 @@ addEventListener('resize', () => {
   if (innerWidth === lastW) return;
   lastW = innerWidth;
   clearTimeout(rt);
-  rt = setTimeout(() => { drawHero(false); drawPhones(false); drawAdobe(false); buildAv(); }, 150);
+  rt = setTimeout(() => { drawHero(false); drawPhones(false); drawAdobe(false); buildAv(); buildVal(false); }, 150);
 });
 })();
