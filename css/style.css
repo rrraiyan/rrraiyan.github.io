@@ -384,8 +384,9 @@ svg.c{display:block;width:100%;height:100%;overflow:visible}
 .dots44 i.on{border-color:transparent;transform:scale(1.04)}
 .dots44 i.on.said{background:var(--main-ink)}
 .dots44 i.on.did{background:var(--second)}
-.domains{list-style:none;margin:6px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.domains button{width:100%;display:grid;grid-template-columns:32px 1fr auto;gap:8px;align-items:center;text-align:left;padding:9px 10px;border-radius:8px;border:1px solid rgba(255,255,255,.16);background:none;color:var(--main-ink);font:500 13.5px/1.25 var(--f-body);cursor:pointer;transition:background .2s}
+.domains{list-style:none;margin:6px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:6px}
+.domains li{display:flex}
+.domains button{width:100%;height:100%;display:grid;grid-template-columns:32px 1fr auto;gap:8px;align-items:center;text-align:left;padding:9px 10px;border-radius:8px;border:1px solid rgba(255,255,255,.16);background:none;color:var(--main-ink);font:500 13.5px/1.25 var(--f-body);cursor:pointer;transition:background .2s}
 .domains button span{font:500 12px var(--f-mono);color:var(--second)}
 .domains button em{font:500 12px var(--f-mono);font-style:normal;opacity:.7}
 .domains button:hover{background:rgba(255,255,255,.06)}
