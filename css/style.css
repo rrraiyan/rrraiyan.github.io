@@ -240,6 +240,8 @@ svg.c{display:block;width:100%;height:100%;overflow:visible}
 .mini h3{font-size:26px;margin-bottom:10px}
 .mini p{color:var(--ink-2);max-width:44em}
 @media (max-width:700px){.mini{grid-template-columns:1fr;gap:10px}}
+.mini-links{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+@media (max-width:700px){.mini-links{flex-direction:row;gap:20px}}
 
 /* ---------- Research ---------- */
 .research{margin-top:120px;padding:110px 0 100px}

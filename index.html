@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..600&family=Instrument+Sans:wght@400..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=8">
+<link rel="stylesheet" href="css/style.css?v=9">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230E4A3B'/%3E%3Cpath d='M6 22 L12 15 L17 18 L26 8' stroke='%23E3A72F' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 </head>
@@ -73,9 +73,9 @@
   <article class="chapter" id="adobe">
     <div class="ch-text rv">
       <p class="ch-num">01</p>
-      <h3>When does deep learning beat a simple model?</h3>
-      <p>I forecast Adobe's share price with two models: <b>Prophet</b>, a statistical model, and <b>N-HiTS</b>, a deep-learning model. I tested them walk-forward, so neither ever saw the future it was predicting.</p>
-      <p>The answer depends on how far ahead you look. Drag the horizon and watch the winner change.</p>
+      <h3>Deep learning won inside the window it was tuned for. Past it, trend fitting won.</h3>
+      <p>I forecast Adobe's share price with two models: <b>N-HiTS</b>, a deep-learning model, and <b>Prophet</b>, which fits a trend and seasonal cycles. I tuned both to forecast 60 days ahead on 2014 to 2018 prices, then forecast 2019 from a single starting point.</p>
+      <p>Up to 60 days, N-HiTS was more accurate. Beyond that it was forecasting further than it was trained for, and Prophet's trend held up better: at 250 days its error was about half of N-HiTS's. Drag the horizon to see where the lead changes.</p>
       <p class="tags">Python · Deep learning · Walk-forward validation</p>
       <a class="link" href="https://github.com/rrraiyan/Prophet-N-HITS-Comparative-Analysis" target="_blank" rel="noopener">Code on GitHub ↗</a>
     </div>
@@ -88,7 +88,7 @@
           <input type="range" id="adobeSlider" min="0" max="5" step="1" value="0" aria-label="Forecast horizon">
           <span class="ticks"><span>7d</span><span>30d</span><span>60d</span><span>90d</span><span>180d</span><span>250d</span></span>
         </label>
-        <p class="fine">Error is RMSE in US dollars; lower is better. The dashed line is a naive "tomorrow equals today" baseline.</p>
+        <p class="fine">Error is RMSE in US dollars; lower is better. The dashed line is a naive baseline that assumes the price stays where it was on the forecast date.</p>
       </div>
     </div>
   </article>
@@ -214,10 +214,10 @@
   <article class="chapter flip" id="yt">
     <div class="ch-text rv">
       <p class="ch-num">06</p>
-      <h3>A video studio that waits for my approval.</h3>
-      <p><b>YouTube Autopilot</b> spots trending topics, reads sources, writes and fact-checks a script, narrates it, adds stock footage and captions, and packages one long video with 2 or 3 Shorts. It also drafts replies to viewer comments.</p>
-      <p>It never publishes anything by itself. I approve every video and every reply from a dashboard.</p>
-      <p class="tags">Python · Generative AI · FFmpeg · Cloudflare Workers</p>
+      <h3>A YouTube studio I run from one dashboard.</h3>
+      <p><b>YouTube Autopilot</b> finds trending topics that fit the channel, researches them, writes and fact-checks a script, narrates it, adds footage and captions, and packages one long video with 2 or 3 Shorts. Every claim in the script must quote a source, and the code rejects any quote it can't find in that source.</p>
+      <p>From the dashboard I approve topics and videos, edit titles and tags, and handle comments. It reads new comments, drafts replies and posts the ones I approve, or posts simple ones by itself within a daily limit when I switch that on. It learns from what I approve and reject. Uploading the video stays my job.</p>
+      <p class="tags">Python · Generative AI · FFmpeg · YouTube API · Cloudflare Workers</p>
       <a class="link" href="https://github.com/rrraiyan/youtube-autopilot" target="_blank" rel="noopener">Code on GitHub ↗</a>
     </div>
     <div class="ch-fig rv">
@@ -241,10 +241,13 @@
     <p class="ch-num">07</p>
     <div>
       <h3>GRE Practice Centre</h3>
-      <p>A free GRE practice app I co-designed with a teammate. It mirrors the real adaptive test, uses automated answer checking to tune question difficulty, and saves each user's score history. I built the account system.</p>
+      <p>A free GRE practice app I co-designed with a teammate. It follows the real test's format, including the adaptive second section. He built the first version; I added tougher questions for stricter preparation, randomized tests, and an account system so each person practises under their own account.</p>
       <p class="tags">JavaScript · Python · Supabase · Automated testing</p>
     </div>
-    <a class="link" href="https://github.com/prans-code/gre-practice-centre" target="_blank" rel="noopener">Code ↗</a>
+    <div class="mini-links">
+      <a class="link" href="https://prans-code.github.io/gre-practice-centre/" target="_blank" rel="noopener">Try it ↗</a>
+      <a class="link" href="https://github.com/prans-code/gre-practice-centre" target="_blank" rel="noopener">Code ↗</a>
+    </div>
   </article>
 </section>
 
@@ -368,7 +371,7 @@
   </div>
 </footer>
 
-<script src="js/data.js?v=8"></script>
-<script src="js/main.js?v=8"></script>
+<script src="js/data.js?v=9"></script>
+<script src="js/main.js?v=9"></script>
 </body>
 </html>
